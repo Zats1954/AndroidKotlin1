@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FFEB3B"
+        android:background="#FF3BF5"
         android:text="Nmedia!"
         android:textColor="@color/teal_700"
         app:layout_constraintBottom_toBottomOf="parent"
