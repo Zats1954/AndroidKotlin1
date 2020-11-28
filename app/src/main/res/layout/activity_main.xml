@@ -46,7 +46,6 @@
         app:layout_constraintEnd_toEndOf="@+id/tvAuthor"
         app:layout_constraintStart_toEndOf="@+id/ivAvatar"
         app:layout_constraintTop_toBottomOf="@+id/tvAuthor"
-        tools:srcCompat="@sample/posts.json/data/published"
         tools:text="@sample/posts.json/data/published" />
 
     <ImageView
@@ -83,8 +82,7 @@
         app:layout_constraintEnd_toEndOf="@+id/barrier"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/barrier"
-        app:layout_constraintTop_toBottomOf="@+id/tvPublished"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/tvPublished" />
 
     <TextView
         android:id="@+id/tvContent"
@@ -114,12 +112,12 @@
         android:contentDescription="@string/divider"
         android:src="@drawable/ic_separator"
         android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/tvContent"
         app:layout_constraintBottom_toTopOf="@+id/ivLike"
+        app:layout_constraintStart_toStartOf="@+id/barrier"
         app:layout_constraintEnd_toEndOf="@+id/barrier"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/barrier"
-        app:layout_constraintTop_toBottomOf="@+id/tvContent"
-        />
+ />
 
     <ImageView
         android:id="@+id/ivLike"
@@ -129,8 +127,9 @@
         android:layout_marginTop="10dp"
         android:contentDescription="@string/menuIcon"
         android:src="@drawable/ic_heart"
+        app:layout_constraintTop_toBottomOf="@+id/barrier1"
         app:layout_constraintStart_toStartOf="@+id/barrier1"
-        app:layout_constraintTop_toBottomOf="@+id/barrier1" />
+ />
 
     <TextView
         android:id="@+id/tvLikes"
@@ -139,11 +138,10 @@
         android:layout_marginStart="8dp"
         android:background="#FFFFFF"
         android:textColor="#FF000000"
+        app:layout_constraintTop_toTopOf="@+id/ivLike"
         app:layout_constraintBottom_toBottomOf="@+id/ivLike"
         app:layout_constraintStart_toEndOf="@+id/ivLike"
-        app:layout_constraintTop_toTopOf="@+id/ivLike"
         app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@sample/posts.json/data/published"
         tools:text="@sample/posts.json/data/likes" />
 
     <ImageView
@@ -153,9 +151,10 @@
         android:layout_marginStart="18dp"
         android:contentDescription="@string/menuIcon"
         android:src="@drawable/ic_baseline_share_24"
+        app:layout_constraintTop_toTopOf="@+id/ivLike"
         app:layout_constraintBottom_toBottomOf="@+id/ivLike"
         app:layout_constraintStart_toEndOf="@+id/tvLikes"
-        app:layout_constraintTop_toTopOf="@+id/ivLike" />
+  />
 
     <TextView
         android:id="@+id/tvShares"
@@ -164,12 +163,11 @@
         android:layout_marginStart="12dp"
         android:background="#FFFFFF"
         android:textColor="#FF000000"
+        app:layout_constraintTop_toTopOf="@+id/tvLikes"
         app:layout_constraintBottom_toBottomOf="@+id/tvLikes"
         app:layout_constraintStart_toEndOf="@+id/ivShare"
-        app:layout_constraintTop_toTopOf="@+id/tvLikes"
-        app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@sample/posts.json/data/published"
-        tools:text="@sample/posts.json/data/shares" />
+
+        tools:text ="@sample/posts.json/data/shares" />
 
     <ImageView
         android:id="@+id/ivVisible"
@@ -178,9 +176,10 @@
         android:layout_marginEnd="10dp"
         android:contentDescription="@string/menuIcon"
         android:src="@drawable/ic_baseline_visibility_24"
+        app:layout_constraintTop_toTopOf="@+id/ivLike"
         app:layout_constraintBottom_toBottomOf="@+id/ivLike"
         app:layout_constraintEnd_toStartOf="@+id/tvVisibles"
-        app:layout_constraintTop_toTopOf="@+id/ivLike" />
+ />
 
     <TextView
         android:id="@+id/tvVisibles"
@@ -189,11 +188,9 @@
         android:layout_marginEnd="18dp"
         android:background="#FFFFFF"
         android:textColor="#FF000000"
+        app:layout_constraintTop_toTopOf="@+id/tvLikes"
         app:layout_constraintBottom_toBottomOf="@+id/tvLikes"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvLikes"
-        app:layout_constraintVertical_bias="1.0"
-        tools:srcCompat="@sample/posts.json/data/published"
         tools:text="@sample/posts.json/data/visibles" />
 
     <androidx.constraintlayout.widget.Barrier
@@ -211,9 +208,9 @@
         android:contentDescription="@string/divider"
         android:src="@drawable/ic_separator1"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@+id/barrier2"
-        app:layout_constraintStart_toStartOf="@+id/barrier2"
         app:layout_constraintTop_toBottomOf="@+id/tvVisibles"
+        app:layout_constraintStart_toStartOf="@+id/barrier2"
+        app:layout_constraintEnd_toEndOf="@+id/barrier2"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
