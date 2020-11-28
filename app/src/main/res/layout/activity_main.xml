@@ -68,40 +68,69 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="ivAvatar,tvPublished,ivMenu"
+        app:constraint_referenced_ids="ivAvatar,tvPublished,ivMenu" />
+
+    <ImageView
+        android:id="@+id/ivDivider"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/divider"
+        android:src="@drawable/ic_separator"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/tvContent"
+        app:layout_constraintEnd_toEndOf="@+id/barrier"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/tvPublished"
         />
 
     <TextView
         android:id="@+id/tvContent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin ="@dimen/common_spacing"
+        android:layout_margin="@dimen/common_spacing"
         android:autoLink="web"
-        app:layout_constraintTop_toBottomOf="@id/barrier"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="@sample/posts.json/data/content"
-         />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier"
+        tools:text="@sample/posts.json/data/content" />
+
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier1"
-        android:foreground="#FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:foreground="#FFFFFF"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="tvContent"
+        app:constraint_referenced_ids="tvContent" />
+
+    <ImageView
+        android:id="@+id/ivDivider1"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="@string/divider"
+        android:src="@drawable/ic_separator"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/ivLike"
+        app:layout_constraintEnd_toEndOf="@+id/barrier"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/tvContent"
         />
 
     <ImageView
         android:id="@+id/ivLike"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
         android:contentDescription="@string/menuIcon"
         android:src="@drawable/ic_heart"
-        app:layout_constraintTop_toBottomOf="@+id/barrier1"
         app:layout_constraintStart_toStartOf="@+id/barrier1"
-         />
+        app:layout_constraintTop_toBottomOf="@+id/barrier1" />
 
     <TextView
         android:id="@+id/tvLikes"
@@ -172,7 +201,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="tvShares,ivVisible,tvVisibles"
+        app:constraint_referenced_ids="tvShares,ivVisible,tvVisibles" />
+
+    <ImageView
+        android:id="@+id/ivDivider2"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/divider"
+        android:src="@drawable/ic_separator1"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/barrier2"
+        app:layout_constraintStart_toStartOf="@+id/barrier2"
+        app:layout_constraintTop_toBottomOf="@+id/tvVisibles"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
