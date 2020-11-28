@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ну, Медия!</string>
-    <string name="text1">Ну, Медия!</string>
+    <string name="leftIcon">left icon</string>
+    <string name="menuIcon">menu icon</string>
 </resources>
