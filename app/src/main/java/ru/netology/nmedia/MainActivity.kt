@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun intToString(num: Int): String {
+  inline  fun intToString(num: Int): String {
         var str = num.toString()
         when (str.length) {
             1, 2, 3 -> return str                     // 999
