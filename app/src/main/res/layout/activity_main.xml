@@ -119,7 +119,7 @@
         app:layout_constraintHorizontal_bias="0.0"
  />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/ivLike"
         android:layout_width="24dp"
         android:layout_height="24dp"
