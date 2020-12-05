@@ -8,11 +8,13 @@
 
     <ImageView
         android:id="@+id/ivAvatar"
+        android:src = "@drawable/post_avatar_drawable"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:contentDescription="@string/leftIcon"
         app:layout_constraintStart_toStartOf="parent"
+
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@sample/posts.json/data/authorAvatar" />
 
