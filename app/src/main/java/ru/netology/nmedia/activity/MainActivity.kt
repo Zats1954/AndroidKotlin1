@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.ivLike.setOnClickListener { viewModel.like()}
+        binding.ivShare.setOnClickListener { viewModel.share()}
     }
 }
 
