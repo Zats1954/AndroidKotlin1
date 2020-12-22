@@ -30,12 +30,10 @@ class PostAdapter(
         val post = getItem(position)
         holder.bind(post)
     }
-
 }
 
 class PostViewHolder(
     private val binding: CardPostBinding,
-
     private val onInteractionListener: OnInteractionListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -44,14 +42,10 @@ class PostViewHolder(
             tvAuthor.text = post.author
             tvPublished.text = post.published
             tvContent.text = post.content
-            tvLikes.text = intToString(post.likes)
-            tvShares.text = intToString(post.shares)
-            tvVisibles.text = intToString(post.visibles)
-
-            ivLike.setImageResource(
-                if (post.likedByMe) R.drawable.ic_heart2
-                else R.drawable.ic_heart
-            )
+            ivShare.text = intToString(post.shares)
+            ivVisible.text = intToString(post.visibles)
+            ivLike.isChecked = post.likedByMe
+            ivLike.text = post.likes.toString()
 
             ivMenu.setOnClickListener {
                 PopupMenu(it.context, it)
