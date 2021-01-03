@@ -3,4 +3,7 @@
     <string name="leftIcon">left icon</string>
     <string name="menuIcon">menu icon</string>
     <string name="divider">divider</string>
+    <string name="chooser_share_post" translatable="false">choose app for share</string>
+    <string name="app_not_found_error" translatable="false">App_not_found_error</string>
+    <string name="description_post_save" translatable="false">save post</string>
 </resources>

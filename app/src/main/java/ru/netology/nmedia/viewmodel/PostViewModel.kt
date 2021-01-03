@@ -22,25 +22,24 @@ class PostViewModel: ViewModel() {
     val data = repository.getAll()
     val edited = MutableLiveData(empty)
 
-    fun save(){
-        edited.value?.let{
-            repository.save(it) }
-        edited.value = empty
-    }
-
     fun edit(post: Post){
+        repository.save(post)
         edited.value = post
     }
 
-    fun changeContent(content: String){
-        edited.value?.let{
-            val text = content.trim()
-            if(it.content == text) return
-            edited.value = it.copy(content = text)
-        }
-
-    }
+//    fun changeContent(content: String){
+//        edited.value?.let{
+//            val text = content.trim()
+//            if(it.content == text) return
+//            edited.value = it.copy(content = text)
+//        }
+//
+//    }
     fun share(id: Long) =repository.share(id)
     fun likeById(id: Long) = repository.likeById(id)
     fun removeById(id: Long) = repository.removeById(id)
+    fun video(post:Post){
+        repository.addVideo(post)
+        edited.value = post
+    }
 }

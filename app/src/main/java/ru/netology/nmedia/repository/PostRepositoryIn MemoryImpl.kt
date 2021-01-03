@@ -1,5 +1,6 @@
 package ru.netology.nmedia.repository
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.dto.Post
@@ -82,6 +83,13 @@ class PostRepositoryInMemoryImpl : PostRepository {
         }
         posts = posts.map{
             if(it.id != post.id) it else it.copy(content = post.content)
+        }
+        data.value = posts
+    }
+
+    override fun addVideo(post: Post) {
+        posts = posts.map{
+            if(it.id != post.id) it else it.copy(video = post.video, videoVisibility = View.VISIBLE)
         }
         data.value = posts
     }
