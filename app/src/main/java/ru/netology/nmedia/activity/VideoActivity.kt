@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import ru.netology.nmedia.R
 import ru.netology.nmedia.databinding.ActivityVideoBinding
 import ru.netology.nmedia.dto.Post
 
@@ -20,11 +19,11 @@ class VideoActivity : AppCompatActivity() {
         setContentView(binding.root)
         var post = getIntent().getParcelableExtra<Post>("post")
         binding.ok.setOnClickListener {
-            val text = binding.edit.text?.toString()
+            val text = binding.edit.text.toString()
             if (text.isNullOrBlank()) {
                 setResult(RESULT_CANCELED)
             } else {
-                post = post.copy(video = text)
+                post = post?.copy(video = text)
                 val intent = Intent()
                     .putExtra(
                         POST_KEY, post

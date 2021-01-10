@@ -2,8 +2,6 @@ package ru.netology.nmedia.activity
 
 import android.content.Intent
 import android.net.Uri
-
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.viewModels
 import android.os.Bundle
