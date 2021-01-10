@@ -41,7 +41,6 @@ class PostRepositoryInMemoryImpl : PostRepository {
     )
     private val data = MutableLiveData(posts)
     override fun getAll(): LiveData<List<Post>> = data
-
     override fun likeById(id: Long) {
         posts = posts.map {
             if (it.id != id) it
@@ -65,31 +64,34 @@ class PostRepositoryInMemoryImpl : PostRepository {
     }
 
     override fun removeById(id: Long) {
-        posts = posts.filter{it.id !=id}
+        posts = posts.filter { it.id != id }
         data.value = posts
     }
 
     override fun save(post: Post) {
-        if(post.id == 0L){
+        if (post.id == 0L) {
             posts = posts + listOf(
-                                     post.copy(
-                                         id = nextId++,
-                                         author = "Me",
-                                         published = "now"
-                                     )
-                             )
+                post.copy(
+                    id = nextId++,
+                    author = "Me",
+                    published = "now"
+                )
+            )
             data.value = posts
             return
         }
-        posts = posts.map{
-            if(it.id != post.id) it else it.copy(content = post.content)
+        posts = posts.map {
+            if (it.id != post.id) it else it.copy(content = post.content)
         }
         data.value = posts
     }
 
     override fun addVideo(post: Post) {
-        posts = posts.map{
-            if(it.id != post.id) it else it.copy(video = post.video, videoVisibility = View.VISIBLE)
+        posts = posts.map {
+            if (it.id != post.id) it else it.copy(
+                video = post.video,
+                videoVisibility = View.VISIBLE
+            )
         }
         data.value = posts
     }
