@@ -2,24 +2,30 @@ package ru.netology.nmedia.activity
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
-import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostAdapter
-import ru.netology.nmedia.databinding.ActivityMainBinding
+import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.viewmodel.PostViewModel
 
-class MainActivity : AppCompatActivity() {
+class FeedFragment : Fragment() {
     private var postRequestCode = 1
-    private val viewModel: PostViewModel by viewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    private val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val binding =FragmentFeedBinding.inflate(inflater, container, false)
         val adapter = PostAdapter(
             onInteractionListener = object : OnInteractionListener {
                 override fun onRemove(post: Post) {
@@ -27,7 +33,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 override fun onEdit(post: Post) {
-                    val intentEdit = Intent(this@MainActivity, EditActivity::class.java)
+                    val intentEdit = Intent(context, EditActivity::class.java)
                     intentEdit.putExtra("post", post)
                     postRequestCode = 1
                     startActivityForResult(intentEdit, postRequestCode)
@@ -46,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     val shareIntent =
                         Intent.createChooser(intent, getString(R.string.chooser_share_post))
-                    if (intent.resolveActivity(packageManager) != null)
+                    if (intent.resolveActivity(requireContext().packageManager) != null)
                         startActivity(shareIntent)
                     else {
                         showToast(R.string.app_not_found_error)
@@ -55,17 +61,17 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onVideo(post: Post) {
                     postRequestCode = 2
-                    val intentVideo = Intent(this@MainActivity, VideoActivity::class.java)
+                    val intentVideo = Intent(context, VideoActivity::class.java)
                     intentVideo.putExtra("post", post)
                     startActivityForResult(intentVideo, postRequestCode)
                 }
 
                 override fun playVideo(post: Post) {
                     val intent = Intent(Intent.ACTION_VIEW)
-                        intent.data = Uri.parse(post.video)
+                    intent.data = Uri.parse(post.video)
                     val shareIntent =
                         Intent.createChooser(intent, getString(R.string.chooser_share_post))
-                    if (intent.resolveActivity(packageManager) != null)
+                    if (intent.resolveActivity(requireContext().packageManager) != null)
                         startActivity(shareIntent)
                     else {
                         showToast(R.string.app_not_found_error)
@@ -74,32 +80,22 @@ class MainActivity : AppCompatActivity() {
             })
 
         binding.list.adapter = adapter
-        viewModel.data.observe(this) { posts ->
+        viewModel.data.observe(viewLifecycleOwner, { posts ->
             adapter.submitList(posts)
-        }
+        })
 
         binding.add.setOnClickListener {
-            val intent = Intent(this, NewActivity::class.java)
-            startActivityForResult(intent, postRequestCode)
+            findNavController().navigate(R.id.action_feedFragment_to_newFragment)
+//            val intent = Intent(context, NewFragment::class.java)
+//            startActivityForResult(intent, postRequestCode)
         }
+        return binding.root
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && data != null) {
-            when (requestCode) {
-                1 -> {val post = data.getParcelableExtra<Post>(NewActivity.POST_KEY) ?: return
-                      viewModel.edit(post)}
-                2 -> {val post = data.getParcelableExtra<Post>(VideoActivity.POST_KEY) ?: return
-                      viewModel.video(post)
-                }
-            }
-        }
-    }
 
     fun showToast(text: Int, length: Int = Toast.LENGTH_SHORT) {
         Toast.makeText(
-            this,
+            context,
             getString(text),
             length
         ).show()

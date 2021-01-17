@@ -5,14 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.NewActivity">
+    tools:context=".activity.NewFragment">
 
     <TextView
         android:id="@+id/textAdvice"
         android:layout_width="183dp"
         android:layout_height="65dp"
         android:layout_gravity="start|top"
-        android:text="Input youtube address" />
+        android:text="@string/youtubeAddress" />
 
     <EditText
         android:id="@+id/edit"
@@ -21,7 +21,7 @@
         android:layout_gravity="center_vertical"
         android:background="@android:color/transparent"
         android:inputType="textMultiLine"
-        android:text="http://youtube.com"
+        android:text="@string/videoTemplate"
         android:visibility="visible"
         tools:visibility="visible" />
 
