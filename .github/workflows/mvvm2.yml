@@ -4,7 +4,7 @@ name: CI MVVM2
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the mvvm2 branch
+  # Triggers the workflow on push or pull request events but only for the mvvm branch
   push:
     branches: [ mvvm2 ]
   pull_request:
