@@ -18,31 +18,36 @@ private val empty = Post(
     visibles = 0
 )
 
-class PostViewModel(application: Application): AndroidViewModel(application) {
+class PostViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: PostRepository = PostRepositoryInMemoryImpl(application)
     val data = repository.getAll()
     val edited = MutableLiveData(empty)
 
-    fun edit(post: Post){
-        repository.save(post)
+    fun edit(post: Post) {
         edited.value = post
     }
 
-    fun changeContent(content: String){
-        edited.value?.let{
+    fun changeContent(content: String) {
+        edited.value?.let {
             val text = content.trim()
-            if(it.content == text) return
+            if (it.content == text) return
             val post = it.copy(content = text)
             repository.save(post)
             edited.value = post
         }
-
     }
-    fun share(id: Long) =repository.share(id)
+
+    fun share(id: Long) = repository.share(id)
     fun likeById(id: Long) = repository.likeById(id)
     fun removeById(id: Long) = repository.removeById(id)
-    fun video(post:Post){
-        repository.addVideo(post)
-        edited.value = post
-    }
+    fun video(post: Post) {
+        edited.value?.let {
+            repository.addVideo(post)
+            edited.value = post
+        }
+        }
+
+    fun addPost() {
+        edited.value = empty
+     }
 }

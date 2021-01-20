@@ -9,16 +9,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
+import ru.netology.nmedia.activity.VideoFragment.Companion.idArgument
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostAdapter
 import ru.netology.nmedia.databinding.FragmentFeedBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.viewmodel.PostViewModel
 
+
 class FeedFragment : Fragment() {
-    private var postRequestCode = 1
+
     private val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,11 +36,8 @@ class FeedFragment : Fragment() {
                 }
 
                 override fun onEdit(post: Post) {
-                    val intentEdit = Intent(context, EditActivity::class.java)
-                    intentEdit.putExtra("post", post)
-                    postRequestCode = 1
-                    startActivityForResult(intentEdit, postRequestCode)
-                    viewModel.edit(post)
+                    findNavController().navigate(R.id.action_feedFragment_to_editFragment,
+                    bundleOf("content" to  post.content, "idPost" to post.id))
                 }
 
                 override fun onLike(post: Post) {
@@ -60,10 +60,9 @@ class FeedFragment : Fragment() {
                 }
 
                 override fun onVideo(post: Post) {
-                    postRequestCode = 2
-                    val intentVideo = Intent(context, VideoActivity::class.java)
-                    intentVideo.putExtra("post", post)
-                    startActivityForResult(intentVideo, postRequestCode)
+                    findNavController().navigate(R.id.action_feedFragment_to_videoFragment,
+                        Bundle().apply { idArgument = post }
+                    )
                 }
 
                 override fun playVideo(post: Post) {
@@ -85,9 +84,8 @@ class FeedFragment : Fragment() {
         })
 
         binding.add.setOnClickListener {
-            findNavController().navigate(R.id.action_feedFragment_to_newFragment)
-//            val intent = Intent(context, NewFragment::class.java)
-//            startActivityForResult(intent, postRequestCode)
+            findNavController().navigate(R.id.action_feedFragment_to_newFragment,
+            bundleOf("content" to " " ))
         }
         return binding.root
     }
