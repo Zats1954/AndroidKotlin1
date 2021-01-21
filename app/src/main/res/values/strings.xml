@@ -6,6 +6,6 @@
     <string name="chooser_share_post" translatable="false">choose app for share</string>
     <string name="app_not_found_error" translatable="false">App_not_found_error</string>
     <string name="description_post_save" translatable="false">save post</string>
-    <string name="youtubeAddress">Input youtube address</string>
-    <string name="videoTemplate">http://youtube.com</string>
+    <string name="youtubeAddress" translatable="false">Input youtube address</string>
+    <string name="videoTemplate" translatable="false">https://youtube.com</string>
 </resources>
