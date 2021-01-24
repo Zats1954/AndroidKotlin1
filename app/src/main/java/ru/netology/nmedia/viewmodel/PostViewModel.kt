@@ -1,11 +1,14 @@
 package ru.netology.nmedia.viewmodel
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import ru.netology.nmedia.database.AppDb
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.repository.PostRepository
 import ru.netology.nmedia.repository.PostRepositoryInMemoryImpl
+import ru.netology.nmedia.repository.PostRepositorySQLiteImpl
 
 private val empty = Post(
     id = 0,
@@ -15,11 +18,13 @@ private val empty = Post(
     published = "",
     likes = 0,
     shares = 0,
-    visibles = 0
+    visibles = 0,
+    videoVisibility = View.INVISIBLE,
+    video = " "
 )
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: PostRepository = PostRepositoryInMemoryImpl(application)
+    private val repository: PostRepository = PostRepositorySQLiteImpl(AppDb.getInstance(application).postDao)
     val data = repository.getAll()
     val edited = MutableLiveData(empty)
 
@@ -37,7 +42,7 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun share(id: Long) = repository.share(id)
+//    fun share(id: Long) = repository.share(id)
     fun likeById(id: Long) = repository.likeById(id)
     fun removeById(id: Long) = repository.removeById(id)
     fun video(post: Post) {

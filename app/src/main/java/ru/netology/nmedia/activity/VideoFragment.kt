@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import ru.netology.nmedia.databinding.FragmentVideoBinding
+import ru.netology.nmedia.databinding.FragmentNewBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.util.PostDelegate
@@ -25,7 +25,7 @@ class VideoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentVideoBinding.inflate(inflater, container, false)
+        val binding = FragmentNewBinding.inflate(inflater, container, false)
         var post: Post? = arguments?.idArgument
         if(post?.video == null) post?.video = "https://youtube.com"
         binding.edit.requestFocus()

@@ -1,5 +1,6 @@
 package ru.netology.nmedia.activity
 
+import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.R
 import ru.netology.nmedia.activity.VideoFragment.Companion.idArgument
@@ -66,11 +68,16 @@ class FeedFragment : Fragment() {
                 }
 
                 override fun playVideo(post: Post) {
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse(post.video)
-                    val shareIntent =
-                        Intent.createChooser(intent, getString(R.string.chooser_share_post))
-                    if (intent.resolveActivity(requireContext().packageManager) != null)
+                    val intent = Intent().apply{
+                           action =Intent.ACTION_VIEW
+                           data =  Uri.parse(post.video)  }
+//                    val intent = Intent("android.intent.action.MAIN")
+//                    intent.data = Uri.parse(post.video)
+//                   val pm = requireContext().packageManager
+//                    val am = requireActivity().packageManager
+                    val shareIntent = Intent.createChooser(intent, getString(R.string.chooser_share_post))
+
+                    if (activity?.packageManager?.let { intent.resolveActivity(it) } != null)
                         startActivity(shareIntent)
                     else {
                         showToast(R.string.app_not_found_error)
@@ -98,6 +105,10 @@ class FeedFragment : Fragment() {
             length
         ).show()
     }
+}
+
+private fun Intent.resolveActivity(parentFragmentManager: FragmentManager): ComponentName? {
+return resolveActivity(parentFragmentManager)
 }
 
 

@@ -80,9 +80,9 @@ class PostRepositoryInMemoryImpl(context: Context) : PostRepository {
         data.value = posts
     }
 
-    override fun addVideo(post: Post?) {
+    override fun addVideo(post: Post) {
         posts = posts.map{
-            if(it.id != post?.id) it else it.copy(video = post.video, videoVisibility = View.VISIBLE)
+            if(it.id != post.id) it else it.copy(video = post.video, videoVisibility = View.VISIBLE)
         }
         data.value = posts
     }
