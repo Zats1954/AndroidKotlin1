@@ -27,7 +27,7 @@ class VideoFragment : Fragment() {
     ): View {
         val binding = FragmentNewBinding.inflate(inflater, container, false)
         var post: Post? = arguments?.idArgument
-        if(post?.video == null) post?.video = "https://youtube.com"
+        if(post?.video.isNullOrBlank()) post?.video = "https://youtube.com"
         binding.edit.requestFocus()
         binding.edit.setText(post?.video)
         binding.ok.setOnClickListener {
