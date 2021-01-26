@@ -26,15 +26,6 @@ class PostRepositorySQLiteImpl(private val dao:PostDao) : PostRepository {
         dao.likeById(id)
     }
 
-    override fun share(id: Long) {
-//        posts = posts.map {
-//            if (it.id != id) it
-//            else it.copy(
-//                shares = it.shares + 1
-//            )
-//        }
-//        data.value = posts
-    }
 
     override fun removeById(id: Long) {
         dao.removeById(id)

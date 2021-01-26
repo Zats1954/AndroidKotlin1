@@ -7,7 +7,6 @@ import androidx.lifecycle.MutableLiveData
 import ru.netology.nmedia.database.AppDb
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.repository.PostRepository
-import ru.netology.nmedia.repository.PostRepositoryInMemoryImpl
 import ru.netology.nmedia.repository.PostRepositorySQLiteImpl
 
 private val empty = Post(
@@ -42,9 +41,10 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-//    fun share(id: Long) = repository.share(id)
     fun likeById(id: Long) = repository.likeById(id)
+
     fun removeById(id: Long) = repository.removeById(id)
+
     fun video(post: Post) {
         edited.value?.let {
             repository.addVideo(post)

@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.netology.nmedia.dto.Post
 
-@Entity
+@Entity(tableName = "posts")
 data class PostEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
