@@ -26,8 +26,6 @@ interface PostDao {
                 """)
     fun likeById(id:Long)
 
-//    fun share(id: Long)
-
     @Query("DELETE FROM posts WHERE id = :id")
     fun removeById(id:Long)
 
