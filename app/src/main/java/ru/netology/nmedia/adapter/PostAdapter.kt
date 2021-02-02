@@ -42,6 +42,7 @@ class PostViewHolder(
 
     fun bind(post: Post) {
         binding.apply {
+            println(post.id)
             tvAuthor.text = post.author
             tvPublished.text = post.published
             tvContent.text = post.content

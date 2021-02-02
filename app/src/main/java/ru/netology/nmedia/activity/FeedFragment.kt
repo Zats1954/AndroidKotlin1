@@ -102,8 +102,4 @@ class FeedFragment : Fragment() {
     }
 }
 
-private fun Intent.resolveActivity(parentFragmentManager: FragmentManager): ComponentName? {
-return resolveActivity(parentFragmentManager)
-}
-
 

@@ -8,5 +8,8 @@
     <string name="description_post_save" translatable="false">save post</string>
     <string name="youtubeAddress" translatable="false">Input youtube address</string>
     <string name="videoTemplate" translatable="false">https://youtube.com</string>
-    <string name="channel_remote_name"  translatable="false">channel_remote_name</string>
+    <string name="channel_remote_name"  translatable="false">Server notifications</string>
+    <string name="channel_remote_description"  translatable="false">Notifications from remote server</string>
+    <string name="google_play_unavailable"  translatable="false">Notification can\'t go</string>
+    <string name="msg_token_fmt" translatable="false">"msg_token_fmt"</string>
 </resources>
