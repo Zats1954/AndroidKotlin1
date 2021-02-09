@@ -1,5 +1,6 @@
 package ru.netology.nmedia.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,5 +16,7 @@ class LikeActivity: AppCompatActivity() {
                 viewModel.likeById(it.postId)
             }
         }
+        val backIntent = Intent(this, AppActivity::class.java)
+        startActivity(backIntent)
     }
 }
