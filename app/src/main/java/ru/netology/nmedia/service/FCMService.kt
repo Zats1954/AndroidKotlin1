@@ -1,9 +1,6 @@
 package ru.netology.nmedia.service
 
 import android.app.Notification
-import android.app.PendingIntent
-import android.content.Intent
-import android.os.Bundle
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -12,8 +9,6 @@ import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import ru.netology.nmedia.R
-import ru.netology.nmedia.activity.LikeActivity
-import ru.netology.nmedia.activity.NotifyActivity
 import ru.netology.nmedia.dto.Like
 import ru.netology.nmedia.dto.Post
 import kotlin.random.Random
@@ -25,6 +20,7 @@ class FCMService : FirebaseMessagingService() {
     private val channelId = "remote"
     private val gson = Gson()
     private val TAG = "NMedia"
+    private val CONTENT_LENGTH = 60
 
     override fun onCreate() {
         super.onCreate()
@@ -53,20 +49,13 @@ class FCMService : FirebaseMessagingService() {
     }
 
     private fun handleLike(content: Like) {
-        val resultIntent = Intent(this, LikeActivity::class.java).apply{
-            putExtra("post_bundle", Bundle().apply{ putParcelable ("like", content)})
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)}
-        val resultPendingIntent = PendingIntent.getActivity(
-            this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT
-        )
         val notification = NotificationCompat.Builder(this, channelId)
             .setDefaults(Notification.DEFAULT_ALL)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(
-                "User ${content.userName}  liked ${content.postAuthor} "
+                "${content.userName}  liked ${content.postAuthor} "
             )
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setContentIntent(resultPendingIntent)
             .build()
         print(content.postId.toString() + " " + content.postAuthor)
         NotificationManagerCompat.from(this)
@@ -74,21 +63,17 @@ class FCMService : FirebaseMessagingService() {
     }
 
     private fun handlePost(content: Post) {
-        val resultIntent = Intent(this, NotifyActivity::class.java).apply{
-        putExtra("post_bundle", Bundle().apply{ putParcelable ("post", content)})
-                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)}
-        val resultPendingIntent = PendingIntent.getActivity(
-            this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
+        val shortText = content.content.let{ it  ->
+            if(it.length < CONTENT_LENGTH) it else it.substring(0,CONTENT_LENGTH)}
         val notification = NotificationCompat.Builder(this, channelId)
             .setDefaults(Notification.DEFAULT_ALL)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(
-                "User ${content.author}  wrote ${content.published} "
+                "${content.author} published ${content.published} new post"
             )
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .setContentIntent(resultPendingIntent)
+            .setContentText(shortText)
+            .setStyle(NotificationCompat.BigTextStyle().bigText(content.content))
             .build()
         NotificationManagerCompat.from(this)
             .notify(Random.nextInt(100_000), notification)

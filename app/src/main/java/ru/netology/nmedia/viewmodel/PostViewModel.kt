@@ -8,13 +8,15 @@ import ru.netology.nmedia.database.AppDb
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.repository.PostRepository
 import ru.netology.nmedia.repository.PostRepositorySQLiteImpl
+import java.text.SimpleDateFormat
+import java.util.*
 
-private val empty = Post(
+private var empty = Post(
     id = 0,
     content = "",
     author = "Аноним",
     likedByMe = false,
-    published = "сегодня",
+    published = "now",
     likes = 0,
     shares = 0,
     visibles = 0,
@@ -53,6 +55,9 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
 
     fun addPost() {
-        edited.value = empty
+        var newPost = empty
+        newPost.published =
+            SimpleDateFormat("dd MMMM yyyy hh:mm", Locale.getDefault()).format(Date())
+        edited.value = newPost
      }
 }
