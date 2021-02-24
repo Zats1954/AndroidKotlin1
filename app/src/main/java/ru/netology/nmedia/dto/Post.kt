@@ -17,4 +17,4 @@ data class Post(
     val visibles: Int,
     val videoVisibility: Int = View.INVISIBLE,
     var video: String? = " "
-) : Parcelable
+)  : Parcelable

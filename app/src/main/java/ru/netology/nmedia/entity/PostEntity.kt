@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ru.netology.nmedia.dto.Post
 
-@Entity(tableName = "posts")
+@Entity
 data class PostEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
@@ -13,9 +13,9 @@ data class PostEntity(
     val published: String,
     val content: String,
     val likedByMe: Boolean,
-    val likes: Int,
-    val shares:Int,
-    val visibles: Int,
+    val likes: Int = 0,
+    val shares:Int = 0,
+    val visibles: Int = 0,
     val videoVisibility: Int = View.INVISIBLE,
     var video:String? = " "
 
@@ -32,7 +32,7 @@ data class PostEntity(
         video )
 
     companion object {
-        fun fromPost(post: Post): PostEntity =
+        fun fromPost(post: Post) =
             PostEntity(post.id,
                 post.author,
                 post.published,

@@ -25,7 +25,7 @@ class EditFragment : Fragment() {
             binding.edit.setText(arguments?.getString("content"))
             binding.ok.setOnClickListener {
                 if (!binding.edit.text.isNullOrBlank()) {
-                    viewModel.data.value?.forEach {
+                    viewModel.data.value?.posts?.forEach {
                         if (it.id == idPost) {
                             viewModel.edit(it)
                             viewModel.changeContent(binding.edit.text.toString())

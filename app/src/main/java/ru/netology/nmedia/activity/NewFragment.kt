@@ -9,9 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ru.netology.nmedia.databinding.FragmentNewBinding
 import ru.netology.nmedia.util.AndroidUtils
+import ru.netology.nmedia.util.StringArg
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 class NewFragment : Fragment() {
+    companion object {
+        var Bundle.textArg: String? by StringArg
+    }
     private val viewModel: PostViewModel by viewModels(ownerProducer = ::requireParentFragment)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +31,9 @@ class NewFragment : Fragment() {
                 viewModel.changeContent(binding.edit.text.toString())
                 AndroidUtils.hideKeyboard(binding.root)
             }
-            findNavController().navigateUp()
+            viewModel.postCreated.observe(viewLifecycleOwner){
+            viewModel.loadPosts()
+            findNavController().navigateUp()}
         }
         return binding.root
     }

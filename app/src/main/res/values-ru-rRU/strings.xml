@@ -4,4 +4,7 @@
     <string name="leftIcon">левая иконка</string>
     <string name="menuIcon">иконка меню</string>
     <string name="divider">разлелитель</string>
+    <string name="retry_loading">Повторить</string>
+    <string name="empty_posts">Постов нет.\nЕсли создадите новый пост, то он появится здесь</string>
+    <string name="error_loading">Что-то пошло не так. Попробуйте позднее</string>
 </resources>
