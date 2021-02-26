@@ -38,9 +38,9 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     val postCreated: LiveData<Unit>
         get() = _postCreated
 
-    init {
-        loadPosts()
-    }
+//    init {
+//        loadPosts()
+//    }
 
     fun loadPosts() {
         thread {
@@ -63,7 +63,10 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
             val text = content.trim()
             if (it.content == text) return
             val post = it.copy(content = text)
+            thread{
             repository.save(post)
+            _postCreated.postValue(Unit)
+            }
             edited.value = post
         }
     }
