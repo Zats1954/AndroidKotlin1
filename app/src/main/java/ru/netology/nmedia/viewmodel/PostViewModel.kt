@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.thread
 
-private var empty = Post(
+private val empty = Post(
     id = 0,
     content = "",
     author = "Аноним",
@@ -29,28 +29,30 @@ private var empty = Post(
 )
 
 class PostViewModel(application: Application) : AndroidViewModel(application) {
+
     private val repository: PostRepository = PostRepositoryNetImpl()
     private val _data = MutableLiveData(FeedModel())
     val data: LiveData<FeedModel>
         get() = _data
-    val edited = MutableLiveData(empty)
     private val _postCreated = SingleLiveEvent<Unit>()
     val postCreated: LiveData<Unit>
         get() = _postCreated
+    val edited = MutableLiveData(empty)
 
-//    init {
-//        loadPosts()
-//    }
+    init {
+        loadPosts()
+    }
 
     fun loadPosts() {
         thread {
             _data.postValue(FeedModel(loading = true))
-            try {
+            val value = try {
                 val posts = repository.getAll()
                 FeedModel(posts = posts, empty = posts.isEmpty())
             } catch (e: IOException) {
                 FeedModel(error = true)
-            }.also { _data::postValue }
+            }
+            _data.postValue(value)
         }
     }
 
@@ -59,21 +61,40 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun changeContent(content: String) {
-        edited.value?.let {
-            val text = content.trim()
-            if (it.content == text) return
-            val post = it.copy(content = text)
-            thread{
-            repository.save(post)
-            _postCreated.postValue(Unit)
+        val text = content.trim()
+        edited.value?.let { editPost ->
+            if (editPost.content == text) return
+            thread {
+                _data.postValue(
+                    _data.value?.copy(
+                        posts = _data.value?.posts.orEmpty().map { post ->
+                            if (post.id == editPost.id) {
+                                repository.save(editPost.copy(content = text))
+                            } else {
+                                post
+                            }
+                        })
+                )
+
             }
-            edited.value = post
         }
     }
 
     fun likeById(id: Long) {
         thread {
-            repository.likeById(id)
+            _data.postValue(
+                _data.value?.copy(
+                    posts = _data.value?.posts.orEmpty().map { post ->
+                        if (post.id == id) {
+                            if (post.likedByMe == false)
+                                repository.likeById(id)
+                            else
+                                repository.unlikeById(id)
+                        } else {
+                            post
+                        }
+                    })
+            )
         }
     }
 
@@ -100,12 +121,13 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun addPost() {
-        var newPost = empty
+    fun addPost(content: String) {
+        val newPost = empty
+        newPost.content = content
         newPost.let {
             thread {
                 it.published =
-                    SimpleDateFormat("dd MMMM yyyy hh:mm", Locale.getDefault()).format(Date())
+                    SimpleDateFormat("dd MMMM yyyy HH:mm", Locale.getDefault()).format(Date())
                 repository.save(it)
                 _postCreated.postValue(Unit)
             }

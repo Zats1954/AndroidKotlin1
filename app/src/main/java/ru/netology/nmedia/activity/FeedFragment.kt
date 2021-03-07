@@ -69,7 +69,7 @@ class FeedFragment : Fragment() {
 
                 override fun playVideo(post: Post) {
                     val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse(post.video.toString().trim())
+                    intent.data = Uri.parse(post.video.trim())
                     val shareIntent =
                         Intent.createChooser(intent, getString(R.string.chooser_share_post))
                     if (intent.resolveActivity(requireContext().packageManager) != null)

@@ -5,8 +5,8 @@ import android.os.Parcelable
 import android.view.View
 import kotlinx.parcelize.Parcelize
 
-@Parcelize
-data class Post(
+
+data class Post1(
     val id: Long,
     val author: String,
     var published: String,
@@ -17,4 +17,7 @@ data class Post(
     val visibles: Int,
     val videoVisibility: Int = View.INVISIBLE,
     var video: String = " "
-) : Parcelable
+) {
+    fun PtoP() = Post(id, author,published, content,
+                likedByMe, likes, shares, visibles, videoVisibility, video)
+}

@@ -27,8 +27,7 @@ class NewFragment : Fragment() {
         binding.edit.setText(arguments?.getString("content"))
         binding.ok.setOnClickListener {
             if (!binding.edit.text.isNullOrBlank()) {
-                viewModel.addPost()
-                viewModel.changeContent(binding.edit.text.toString())
+                viewModel.addPost(binding.edit.text.toString())
                 AndroidUtils.hideKeyboard(binding.root)
             }
             viewModel.postCreated.observe(viewLifecycleOwner){
