@@ -10,6 +10,7 @@
         android:id="@+id/ivAvatar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:paddingTop="30dp"
         android:layout_margin="10dp"
         android:contentDescription="@string/leftIcon"
         app:layout_constraintStart_toStartOf="parent"
